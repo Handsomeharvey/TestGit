@@ -1,6 +1,5 @@
 package com.harvey.mvpandroid.base;
 
-
 import android.support.annotation.UiThread;
 
 /**
@@ -8,18 +7,18 @@ import android.support.annotation.UiThread;
  */
 public interface MvpBaseView<M> extends MvpView {
 
-    @UiThread
-    void showLoading(boolean pullToRefresh);
+	@UiThread
+	void showLoading(boolean pullToRefresh);
 
-    @UiThread
-    void showError(int errorCode, String errorMsg, boolean pullToRefresh);
+	@UiThread
+	void showError(int errorCode, String errorMsg, boolean pullToRefresh);
 
-    @UiThread
-    void setData(M data);
+	@UiThread
+	void setData(M data);
 
-    @UiThread
-    void showContent();
+	@UiThread
+	void showContent();
 
-    @UiThread
-    void loadData(boolean pullToRefresh);
+	@UiThread
+	void loadData(boolean pullToRefresh);
 }

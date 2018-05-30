@@ -1,12 +1,14 @@
 package com.harvey.mvpandroid.base;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,39 +33,29 @@ public abstract class MvpFragment<CV extends View, M, V extends MvpBaseView<M>, 
 	protected CV contentView;
 	protected TextView errorView;
 	protected P presenter;
-	protected MvpActivity mActivity;
+	protected Context mContext;
+
+	@NonNull
+	public abstract P createPresenter();
 
 	public abstract View getCreateContentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState);
 
-	public void initHolder(final View view) {
-		loadingView = view.findViewById(R.id.loadingView);
-		contentView = (CV) view.findViewById(R.id.contentView);
-		errorView = (TextView) view.findViewById(R.id.errorView);
-		if (errorView != null)
-			errorView.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					onErrorViewClicked();
-				}
-			});
-	}
+	public abstract void initHolder(final View view);
 
 	public abstract void bindListener(final View view);
 
 	public abstract void initData();
 
-	protected MvpActivity getHoldingActivity() {
-		return mActivity;
+	@Override
+	public void onAttach(Context context) {
+		super.onAttach(context);
+		this.mContext = context;
 	}
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		this.mActivity = (MvpActivity) activity;
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		return getCreateContentView(inflater, container, savedInstanceState);
 	}
-
-	@NonNull
-	public abstract P createPresenter();
 
 	@CallSuper
 	@Override
@@ -71,14 +63,24 @@ public abstract class MvpFragment<CV extends View, M, V extends MvpBaseView<M>, 
 		super.onViewCreated(view, savedInstanceState);
 		if (presenter == null)
 			presenter = createPresenter();
+		initBaseHolder(view);
 		initHolder(view);
 		bindListener(view);
 		initData();
+		loadData(false);
 	}
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		return getCreateContentView(inflater, container, savedInstanceState);
+	private void initBaseHolder(final View view) {
+		loadingView = view.findViewById(R.id.loadingView);
+		contentView = view.findViewById(R.id.contentView);
+		errorView = view.findViewById(R.id.errorView);
+		if (errorView != null)
+			errorView.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					onErrorViewClicked();
+				}
+			});
 	}
 
 	@Override
@@ -124,9 +126,12 @@ public abstract class MvpFragment<CV extends View, M, V extends MvpBaseView<M>, 
 			Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
 
 		} else {
-			if (errorView == null)
+			if (errorView == null) {
+				Toast.makeText(getActivity(), errorMsg, Toast.LENGTH_SHORT).show();
 				return;
-			errorView.setText(errorMsg);
+			}
+			if (!TextUtils.isEmpty(errorMsg))
+				errorView.setText(errorMsg);
 			animateErrorViewIn();
 		}
 	}
@@ -137,11 +142,6 @@ public abstract class MvpFragment<CV extends View, M, V extends MvpBaseView<M>, 
 	 */
 	protected void animateErrorViewIn() {
 		MvpAnimator.showErrorView(loadingView, contentView, errorView);
-	}
-
-	@Override
-	public void loadData(boolean pullToRefresh) {
-
 	}
 
 	@Override

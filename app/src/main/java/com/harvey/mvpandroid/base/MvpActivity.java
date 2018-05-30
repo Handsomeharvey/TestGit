@@ -1,10 +1,12 @@
 package com.harvey.mvpandroid.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,13 +27,17 @@ public abstract class MvpActivity<CV extends View, M, V extends MvpBaseView<M>, 
 	protected TextView errorView;
 	protected P presenter;
 	@NonNull
-	public abstract P createPresenter();
+	protected abstract P createPresenter();
 
 	protected abstract int getContentViewId();
 
 	protected abstract void initHolder();
 
-	public abstract void initListener();
+	protected abstract void handleIntent(Intent intent);
+
+	protected abstract void initListener();
+
+	protected abstract void initData();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,10 @@ public abstract class MvpActivity<CV extends View, M, V extends MvpBaseView<M>, 
 		presenter = createPresenter();
 		setContentView(getContentViewId());
 		initHolder();
+		if (null != getIntent())
+			handleIntent(getIntent());
 		initListener();
+		initData();
 		loadData(false);
 	}
 
@@ -48,16 +57,20 @@ public abstract class MvpActivity<CV extends View, M, V extends MvpBaseView<M>, 
 	public void onContentChanged() {
 		super.onContentChanged();
 		loadingView = findViewById(R.id.loadingView);
-		contentView = (CV) findViewById(R.id.contentView);
-		errorView = (TextView) findViewById(R.id.errorView);
+		contentView = findViewById(R.id.contentView);
+		errorView = findViewById(R.id.errorView);
 		if (errorView != null) {
 			errorView.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					loadData(false);
+					onErrorViewClicked();
 				}
 			});
 		}
+	}
+
+	protected void onErrorViewClicked() {
+		loadData(false);
 	}
 
 	@Override
@@ -94,13 +107,19 @@ public abstract class MvpActivity<CV extends View, M, V extends MvpBaseView<M>, 
 				((SwipeRefreshLayout) contentView).setRefreshing(false);
 			Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show();
 		} else {
-			if (errorView == null)
+			if (errorView == null) {
+				Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show();
 				return;
-			errorView.setText(errorMsg);
+			}
+			if (!TextUtils.isEmpty(errorMsg))
+				errorView.setText(errorMsg);
 			animateErrorViewIn();
 		}
 	}
 
+	@Override
+	public void setData(M m) {
+	}
 	/**
 	 * Animates the error view in (instead of displaying content view / loading
 	 * view)
@@ -108,6 +127,7 @@ public abstract class MvpActivity<CV extends View, M, V extends MvpBaseView<M>, 
 	protected void animateErrorViewIn() {
 		MvpAnimator.showErrorView(loadingView, contentView, errorView);
 	}
+
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
