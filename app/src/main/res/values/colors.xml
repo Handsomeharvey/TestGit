@@ -3,4 +3,57 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+
+    <drawable name="line_bg">#f2f2f2</drawable>
+    <drawable name="common_white_press_bg">#b4b4b4</drawable>
+    <drawable name="common_white_bg">#ffffff</drawable>
+    <drawable name="colorPrimaryDark">#41dea9</drawable>
+    <color name="grey_status_color">#b5b5b5</color>
+    <color name="title_text_color">#ffffff</color>
+    <color name="white">#ffffff</color>
+    <color name="blue">#3670c0</color>
+    <color name="primary_btn_text_color">#41dea9</color>
+    <color name="gray_text_color">#999999</color>
+    <color name="dark_gray_text_color">#9c9c9c</color>
+    <color name="gray_bg">#f2f2f2</color>
+    <color name="dark_grey_color">#9a9a9a</color>
+    <color name="popup_bg">#8f000000</color>
+    <color name="line_bg">#f2f2f2</color>
+    <color name="black_text_color">#202020</color>
+    <color name="text_hint_color">#999999</color>
+    <color name="red_text_color">#fe675e</color>
+    <color name="click_bg">#c7c7c7</color>
+    <color name="im_font_color_text_hint">#abb1b6</color>
+
+    <!-- 10%透明 -->
+    <color name="transparent_10_bg">#e5000000</color>
+
+    <!-- 20%透明 -->
+    <color name="transparent_20_bg">#cc000000</color>
+
+    <!-- 40%透明 -->
+    <color name="transparent_40_bg">#99000000</color>
+
+    <!-- 50%透明 -->
+    <color name="transparent_50_bg">#80000000</color>
+
+    <!-- 60%透明 -->
+    <color name="transparent_60_bg">#66000000</color>
+
+    <!-- 90%透明 -->
+    <color name="transparent_90_bg">#19000000</color>
+
+    <!-- 50%透明 -->
+    <color name="transparent_white_50_bg">#80ffffff</color>
+
+
+    <color name="default_black_text_color">#434343</color>
+
+    <color name="default_subject_color">#fc4c3d</color>
+
+    <color name="subject_start_color">#ff724f</color>
+
+    <color name="subject_end_color">#fe4c3d</color>
+
 </resources>

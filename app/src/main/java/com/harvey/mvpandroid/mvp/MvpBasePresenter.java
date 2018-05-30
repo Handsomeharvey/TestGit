@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.harvey.mvpandroid.base;
+package com.harvey.mvpandroid.mvp;
 
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;

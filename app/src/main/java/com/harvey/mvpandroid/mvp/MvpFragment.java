@@ -1,6 +1,5 @@
-package com.harvey.mvpandroid.base;
+package com.harvey.mvpandroid.mvp;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
@@ -21,8 +20,6 @@ import com.harvey.mvpandroid.R;
  * A Fragment that uses a {@link MvpPresenter} to implement a
  * Model-View-Presenter architecture
  *
- * @author Hannes Dorfmann
- * @since 1.0.0
  */
 public abstract class MvpFragment<CV extends View, M, V extends MvpBaseView<M>, P extends MvpBasePresenter<V>>
 		extends

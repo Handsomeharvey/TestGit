@@ -1,4 +1,4 @@
-package com.harvey.mvpandroid.base;
+package com.harvey.mvpandroid.mvp;
 
 import android.content.Intent;
 import android.os.Bundle;

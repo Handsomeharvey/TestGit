@@ -4,4 +4,29 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="mvp_content_view_animation_translate_y">40dp</dimen>
+
+
+    <dimen name="common_title_menu_text_size">14sp</dimen>
+    <dimen name="common_title_text_size">16sp</dimen>
+
+    <dimen name="common_nav_title_text_size">18sp</dimen>
+
+    <dimen name="common_text_size">14sp</dimen>
+    <dimen name="common_small_text_size">12sp</dimen>
+    <dimen name="common_big_text_size">25sp</dimen>
+
+    <dimen name="common_dialog_btn_height">37dp</dimen>
+    <dimen name="common_btn_height">45dp</dimen>
+    <dimen name="common_edit_text_height">35dp</dimen>
+    <dimen name="common_btn_text_size">16sp</dimen>
+
+    <dimen name="common_item_height">60dp</dimen>
+    <dimen name="common_item_text_size">14sp</dimen>
+
+    <dimen name="common_menu_item_height">50dp</dimen>
+    <dimen name="common_menu_item_text_size">14sp</dimen>
+
+    <dimen name="common_list_item_main_text_size">14sp</dimen>
+    <dimen name="common_list_item_minor_text_size">12sp</dimen>
+    <dimen name="common_list_item_small_text_size">10sp</dimen>
 </resources>

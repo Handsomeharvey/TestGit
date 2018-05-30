@@ -3,7 +3,7 @@ package com.harvey.mvpandroid.login;
 import android.os.Handler;
 import android.text.TextUtils;
 
-import com.harvey.mvpandroid.base.MvpBasePresenter;
+import com.harvey.mvpandroid.mvp.MvpBasePresenter;
 import com.harvey.mvpandroid.utils.PatternUtils;
 
 import java.util.concurrent.TimeUnit;

@@ -3,6 +3,7 @@ package com.harvey.mvpandroid;
 import android.annotation.TargetApi;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -21,8 +22,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.harvey.mvpandroid.base.MvpActivity;
+import com.harvey.mvpandroid.base.BaseActivity;
 import com.harvey.mvpandroid.login.ILoginView;
 import com.harvey.mvpandroid.login.LoginModule;
 import com.harvey.mvpandroid.login.LoginPresenter;
@@ -36,7 +38,7 @@ import static android.Manifest.permission.READ_CONTACTS;
 /**
  * A login screen that offers login via email/password.
  */
-public class LoginActivity extends MvpActivity<View, LoginModule, ILoginView, LoginPresenter>
+public class LoginActivity extends BaseActivity<View, LoginModule, ILoginView, LoginPresenter>
 		implements
 			LoaderCallbacks<Cursor>,
 			ILoginView {
@@ -64,9 +66,15 @@ public class LoginActivity extends MvpActivity<View, LoginModule, ILoginView, Lo
 
 	@Override
 	protected void initHolder() {
-		mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-		mPasswordView = (EditText) findViewById(R.id.password);
-		mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+		mEmailView = findViewById(R.id.email);
+		mPasswordView = findViewById(R.id.password);
+		mEmailSignInButton = findViewById(R.id.email_sign_in_button);
+		setSubPageTitle("登录", false);
+	}
+
+	@Override
+	protected void handleIntent(Intent intent) {
+
 	}
 
 	@Override
@@ -89,33 +97,9 @@ public class LoginActivity extends MvpActivity<View, LoginModule, ILoginView, Lo
 		});
 	}
 
-	private void populateAutoComplete() {
-		if (!mayRequestContacts()) {
-			return;
-		}
-		getLoaderManager().initLoader(0, null, this);
-	}
+	@Override
+	protected void initData() {
 
-	private boolean mayRequestContacts() {
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-			return true;
-		}
-		if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
-			return true;
-		}
-		if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
-			Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
-					.setAction(android.R.string.ok, new View.OnClickListener() {
-						@Override
-						@TargetApi(Build.VERSION_CODES.M)
-						public void onClick(View v) {
-							requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-						}
-					});
-		} else {
-			requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
-		}
-		return false;
 	}
 
 	/**
@@ -187,14 +171,41 @@ public class LoginActivity extends MvpActivity<View, LoginModule, ILoginView, Lo
 
 	@Override
 	public void setData(LoginModule m) {
-
+		Toast.makeText(this, "登录成功!", Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
 	public void loadData(boolean pullToRefresh) {
 		populateAutoComplete();
 	}
+	private void populateAutoComplete() {
+		if (!mayRequestContacts()) {
+			return;
+		}
+		getLoaderManager().initLoader(0, null, this);
+	}
 
+	private boolean mayRequestContacts() {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+			return true;
+		}
+		if (checkSelfPermission(READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+			return true;
+		}
+		if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
+			Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
+					.setAction(android.R.string.ok, new View.OnClickListener() {
+						@Override
+						@TargetApi(Build.VERSION_CODES.M)
+						public void onClick(View v) {
+							requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+						}
+					});
+		} else {
+			requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
+		}
+		return false;
+	}
 	private interface ProfileQuery {
 		String[] PROJECTION = {ContactsContract.CommonDataKinds.Email.ADDRESS,
 				ContactsContract.CommonDataKinds.Email.IS_PRIMARY,};
