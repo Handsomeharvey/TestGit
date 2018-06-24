@@ -37,7 +37,7 @@ import android.widget.FrameLayout;
 import java.lang.reflect.Method;
 
 /**
- * Created by hanhui on 2018/5/30 0030 15:40
+ * Created by harvey on 2018/5/30 0030 15:40
  */
 
 public class SystemBarTintManager {

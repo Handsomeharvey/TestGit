@@ -8,7 +8,7 @@ import com.harvey.mvpandroid.mvp.MvpBaseView;
 import com.harvey.mvpandroid.mvp.MvpFragment;
 
 /**
- * Created by hanhui on 2016/11/8 0008 11:01
+ * Created by harvey on 2016/11/8 0008 11:01
  */
 public abstract class BaseFragment<CV extends View, M, V extends MvpBaseView<M>, P extends MvpBasePresenter<V>>
 		extends

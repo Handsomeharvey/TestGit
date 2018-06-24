@@ -22,7 +22,7 @@ import android.support.annotation.UiThread;
 import java.lang.ref.WeakReference;
 
 /**
- * Created by hanhui on 2016/10/13 0013 09:41
+ * Created by harvey on 2016/10/13 0013 09:41
  */
 public class MvpBasePresenter<V extends MvpView> implements MvpPresenter<V> {
 

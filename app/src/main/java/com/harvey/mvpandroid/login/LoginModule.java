@@ -4,7 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Created by hanhui on 2016/10/14 0014 09:08
+ * Created by harvey on 2016/10/14 0014 09:08
  */
 public class LoginModule implements Parcelable {
     String token;

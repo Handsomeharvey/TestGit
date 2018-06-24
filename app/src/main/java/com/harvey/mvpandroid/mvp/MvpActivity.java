@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.harvey.mvpandroid.R;
 
 /**
- * Created by hanhui on 2016/11/8 0008 11:01
+ * Created by harvey on 2016/11/8 0008 11:01
  */
 public abstract class MvpActivity<CV extends View, M, V extends MvpBaseView<M>, P extends MvpPresenter<V>>
 		extends

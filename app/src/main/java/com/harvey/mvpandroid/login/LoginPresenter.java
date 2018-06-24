@@ -3,7 +3,7 @@ package com.harvey.mvpandroid.login;
 import com.harvey.mvpandroid.mvp.MvpPresenter;
 
 /**
- * Created by hanhui on 2016/10/14 0014 09:25
+ * Created by harvey on 2016/10/14 0014 09:25
  */
 public interface LoginPresenter extends MvpPresenter<ILoginView> {
 

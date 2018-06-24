@@ -9,7 +9,7 @@ import com.harvey.mvpandroid.utils.PatternUtils;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by hanhui on 2016/10/14 0014 09:25
+ * Created by harvey on 2016/10/14 0014 09:25
  */
 public class LoginPresenterImpl extends MvpBasePresenter<ILoginView> implements LoginPresenter {
 
